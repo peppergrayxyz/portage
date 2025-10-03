@@ -1153,10 +1153,11 @@ if ___eapi_has_eapply_user; then
 		# order of specificity:
 		# 1. ${CATEGORY}/${P}-${PR} (note: -r0 desired to avoid applying
 		#    ${P} twice)
-		# 2. ${CATEGORY}/${P}
-		# 3. ${CATEGORY}/${PN}
+		# 2. ${CATEGORY}/${P}-${PR}
+		# 3. ${CATEGORY}/${P}
+		# 4. ${CATEGORY}/${PN}
 		# all of the above may be optionally followed by a slot
-		for d in "${basedir}"/"${CATEGORY}"/{"${PN}","${P}","${P}-${PR}"}{,":${SLOT%/*}"}; do
+		for d in "${basedir}"/"${CATEGORY}"/{"${PN}","${P}","${P}-${PV}","${P}-${PR}"}{,":${SLOT%/*}"}; do
 			if ! __readdir "${d}" && [[ -e ${d} || -L ${d} ]]; then
 				__helpers_die "eapply_user: ${d@Q} exists but can't be opened as a directory by ${PORTAGE_BUILD_USER@Q}"
 				return
